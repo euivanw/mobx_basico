@@ -15,3 +15,6 @@ Cada branch contém um exemplo demonstrado no evento, conforme lista abaixo:
 
 Todos os exemplos acima são adaptações dos exemplos oficiais do MobX disponíveis no endereço [https://mobx.netlify.com](https://mobx.netlify.com).
 
+Made with &hearts; by Ivan Wilhelm.
+
+Coded with [IntelliJ IDEA Community](https://www.jetbrains.com/idea) by [JetBrains](https://www.jetbrains.com)
