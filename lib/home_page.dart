@@ -1,58 +1,91 @@
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
-import 'package:mobx_basico/conexao_store.dart';
+
+import 'form_store.dart';
 
 class HomePage extends StatefulWidget {
-  final ConexaoStore store;
-
-  const HomePage(this.store, {Key key}) : super(key: key);
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  ReactionDisposer _disposer;
+  final FormStore store = FormStore();
 
   @override
   void initState() {
     super.initState();
-    _disposer = reaction(
-      (_) => widget.store.conexaoStream.value,
-      (estado) => (widget.store.setEstado(//
-          estado == ConnectivityResult.none //
-              ? 'Desconectada' //
-              : 'Conectada')),
-    );
+    store.configuraValidadores();
   }
 
   @override
   void dispose() {
-    _disposer();
     super.dispose();
+    store.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
-    print('Construindo interface');
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('MobX Reações'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Sua conexão está:'),
-            Observer(
-              builder: (_) => Text(widget.store.estado),
-            ),
-          ],
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text('Formulário Reativo'),
         ),
-      ),
-    );
-  }
+        body: Form(
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: <Widget>[
+                Observer(
+                  builder: (_) => TextField(
+                    onChanged: store.setNome,
+                    decoration: InputDecoration(
+                      labelText: 'Nome de usuário',
+                      hintText: 'Informe o seu nome de usuário',
+                      errorText: store.erros.nome,
+                    ),
+                  ),
+                ),
+                Observer(
+                  builder: (_) => AnimatedOpacity(
+                    child: LinearProgressIndicator(),
+                    duration: Duration(milliseconds: 300),
+                    opacity: store.estaVerificandoNome ? 1 : 0,
+                  ),
+                ),
+                Observer(
+                  builder: (_) => TextField(
+                    onChanged: store.setEmail,
+                    decoration: InputDecoration(
+                      labelText: 'E-mail',
+                      hintText: 'Informe o seu e-mail',
+                      errorText: store.erros.email,
+                    ),
+                  ),
+                ),
+                Observer(
+                  builder: (_) => TextField(
+                    onChanged: store.setSenha,
+                    decoration: InputDecoration(
+                      labelText: 'Senha',
+                      hintText: 'Informe a sua senha',
+                      errorText: store.erros.senha,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 32,
+                ),
+                Observer(
+                  builder: (_) => RaisedButton(
+                    child: Text(
+                      'Validar',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    color: Colors.blue,
+                    onPressed: store.validarTudo,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
 }
