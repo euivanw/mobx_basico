@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart' as mobx;
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  mobx.Observable<int> contador = mobx.Observable(0);
+  mobx.Action _incrementarContador;
 
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+  HomePage() {
+    _incrementarContador = mobx.Action(_incrementar);
+  }
 
-class _HomePageState extends State<HomePage> {
-  int _contador = 0;
-
-  void _incrementarContador() {
-    setState(() {
-      _contador++;
-    });
+  void _incrementar() {
+    contador.value++;
   }
 
   @override
@@ -27,9 +25,11 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('O botão foi pressionado:'),
-            Text(
-              '$_contador',
-              style: Theme.of(context).textTheme.display1,
+            Observer(
+              builder: (_) => Text(
+                '${contador.value}',
+                style: Theme.of(context).textTheme.display1,
+              ),
             ),
           ],
         ),
@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementarContador,
         tooltip: 'Incrementar',
-        child: Icon(Icons.add),
+        child: Icon(Icons.plus_one),
       ),
     );
   }
