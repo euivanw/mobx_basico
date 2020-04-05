@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart' as mobx;
+
+import 'contador_store.dart';
 
 class HomePage extends StatelessWidget {
-  mobx.Observable<int> contador = mobx.Observable(0);
-  mobx.Action _incrementarContador;
-
-  HomePage() {
-    _incrementarContador = mobx.Action(_incrementar);
-  }
-
-  void _incrementar() {
-    contador.value++;
-  }
+  final store = ContadorStore();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +19,7 @@ class HomePage extends StatelessWidget {
             Text('O botão foi pressionado:'),
             Observer(
               builder: (_) => Text(
-                '${contador.value}',
+                '${store.valor}',
                 style: Theme.of(context).textTheme.display1,
               ),
             ),
@@ -35,7 +27,7 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementarContador,
+        onPressed: store.incrementar,
         tooltip: 'Incrementar',
         child: Icon(Icons.plus_one),
       ),
