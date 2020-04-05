@@ -73,15 +73,13 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 32,
                 ),
-                Observer(
-                  builder: (_) => RaisedButton(
-                    child: Text(
-                      'Validar',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    color: Colors.blue,
-                    onPressed: store.validarTudo,
+                RaisedButton(
+                  child: Text(
+                    'Validar',
+                    style: TextStyle(color: Colors.white),
                   ),
+                  color: Colors.blue,
+                  onPressed: store.validarTudo,
                 ),
               ],
             ),
