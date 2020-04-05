@@ -9,7 +9,6 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Meetup MobX',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
       home: HomePage(),
     );
   }
