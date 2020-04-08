@@ -85,7 +85,7 @@ mixin _$FormErrosStore on _FormErrosStoreBase, Store {
       ActionController(name: '_FormErrosStoreBase');
 
   @override
-  String setNome(String nome) {
+  void setNome(String nome) {
     final _$actionInfo = _$_FormErrosStoreBaseActionController.startAction();
     try {
       return super.setNome(nome);
@@ -95,7 +95,7 @@ mixin _$FormErrosStore on _FormErrosStoreBase, Store {
   }
 
   @override
-  String setEmail(String email) {
+  void setEmail(String email) {
     final _$actionInfo = _$_FormErrosStoreBaseActionController.startAction();
     try {
       return super.setEmail(email);
@@ -105,7 +105,7 @@ mixin _$FormErrosStore on _FormErrosStoreBase, Store {
   }
 
   @override
-  String setSenha(String senha) {
+  void setSenha(String senha) {
     final _$actionInfo = _$_FormErrosStoreBaseActionController.startAction();
     try {
       return super.setSenha(senha);

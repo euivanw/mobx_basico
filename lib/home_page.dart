@@ -28,60 +28,62 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text('Formulário Reativo'),
         ),
-        body: Form(
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              children: <Widget>[
-                Observer(
-                  builder: (_) => TextField(
-                    onChanged: store.setNome,
-                    decoration: InputDecoration(
-                      labelText: 'Nome de usuário',
-                      hintText: 'Informe o seu nome de usuário',
-                      errorText: store.erros.nome,
+        body: SingleChildScrollView(
+          child: Form(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                children: <Widget>[
+                  Observer(
+                    builder: (_) => TextField(
+                      onChanged: store.setNome,
+                      decoration: InputDecoration(
+                        labelText: 'Nome de usuário',
+                        hintText: 'Informe o seu nome de usuário',
+                        errorText: store.erros.nome,
+                      ),
                     ),
                   ),
-                ),
-                Observer(
-                  builder: (_) => AnimatedOpacity(
-                    child: LinearProgressIndicator(),
-                    duration: Duration(milliseconds: 300),
-                    opacity: store.estaVerificandoNome ? 1 : 0,
-                  ),
-                ),
-                Observer(
-                  builder: (_) => TextField(
-                    onChanged: store.setEmail,
-                    decoration: InputDecoration(
-                      labelText: 'E-mail',
-                      hintText: 'Informe o seu e-mail',
-                      errorText: store.erros.email,
+                  Observer(
+                    builder: (_) => AnimatedOpacity(
+                      child: LinearProgressIndicator(),
+                      duration: Duration(milliseconds: 300),
+                      opacity: store.estaVerificandoNome ? 1 : 0,
                     ),
                   ),
-                ),
-                Observer(
-                  builder: (_) => TextField(
-                    onChanged: store.setSenha,
-                    decoration: InputDecoration(
-                      labelText: 'Senha',
-                      hintText: 'Informe a sua senha',
-                      errorText: store.erros.senha,
+                  Observer(
+                    builder: (_) => TextField(
+                      onChanged: store.setEmail,
+                      decoration: InputDecoration(
+                        labelText: 'E-mail',
+                        hintText: 'Informe o seu e-mail',
+                        errorText: store.erros.email,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 32,
-                ),
-                RaisedButton(
-                  child: Text(
-                    'Validar',
-                    style: TextStyle(color: Colors.white),
+                  Observer(
+                    builder: (_) => TextField(
+                      onChanged: store.setSenha,
+                      decoration: InputDecoration(
+                        labelText: 'Senha',
+                        hintText: 'Informe a sua senha',
+                        errorText: store.erros.senha,
+                      ),
+                    ),
                   ),
-                  color: Colors.blue,
-                  onPressed: store.validarTudo,
-                ),
-              ],
+                  SizedBox(
+                    height: 32,
+                  ),
+                  RaisedButton(
+                    child: Text(
+                      'Validar',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    color: Colors.blue,
+                    onPressed: store.validarTudo,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

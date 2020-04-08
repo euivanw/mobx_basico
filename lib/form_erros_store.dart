@@ -27,11 +27,11 @@ abstract class _FormErrosStoreBase with Store {
   bool get temErros => _nome != null || _email != null || _senha != null;
 
   @action
-  String setNome(String nome) => _nome = nome;
+  void setNome(String nome) => _nome = nome;
 
   @action
-  String setEmail(String email) => _email = email;
+  void setEmail(String email) => _email = email;
 
   @action
-  String setSenha(String senha) => _senha = senha;
+  void setSenha(String senha) => _senha = senha;
 }
